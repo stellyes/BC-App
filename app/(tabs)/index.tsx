@@ -1,5 +1,14 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  Image,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 
 /**
  * WELCOME TO YOUR FIRST APP!
@@ -11,6 +20,66 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-nativ
  * - Event handling (responding to user actions)
  */
 
+const { width: windowWidth } = Dimensions.get('window');
+
+function BannerCarousel() {
+  const banners = [
+    require('../../assets/mobilebanners/jettymobilebanner.png'),
+    require('../../assets/mobilebanners/britemobilebanner.png'),
+    require('../../assets/mobilebanners/KINDmobilebanner.png'),
+    require('../../assets/mobilebanners/FFFmobilebanner.png'),
+    require('../../assets/mobilebanners/ICEDmobilebanner.png'),
+  ];
+
+  const scrollRef = useRef(null as ScrollView | null);
+  const currentIndexRef = useRef(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const bannerWidth = windowWidth - 40; // account for container padding
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      const next = (currentIndexRef.current + 1) % banners.length;
+      scrollRef.current?.scrollTo({ x: next * bannerWidth, animated: true });
+      currentIndexRef.current = next;
+      setCurrentIndex(next);
+    }, 4000);
+
+    return () => clearInterval(id);
+  }, [bannerWidth]);
+
+  function onMomentumScrollEnd(e: any) {
+    const x = e.nativeEvent.contentOffset.x;
+    const idx = Math.round(x / bannerWidth);
+    currentIndexRef.current = idx;
+    setCurrentIndex(idx);
+  }
+
+  return (
+    <View style={styles.carouselContainer}>
+      <ScrollView
+        ref={scrollRef}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        onMomentumScrollEnd={onMomentumScrollEnd}
+        contentContainerStyle={{ alignItems: 'center' }}
+      >
+        {banners.map((src, i) => (
+          <View key={i} style={{ width: bannerWidth, alignItems: 'center' }}>
+            <Image source={src} style={styles.bannerImage} />
+          </View>
+        ))}
+      </ScrollView>
+
+      <View style={styles.dotsContainer}>
+        {banners.map((_, i) => (
+          <View key={i} style={[styles.dot, currentIndex === i && styles.activeDot]} />
+        ))}
+      </View>
+    </View>
+  );
+}
+
 export default function App() {
   // STATE: These are values that can change in your app
   const [count, setCount] = useState(0);
@@ -19,25 +88,26 @@ export default function App() {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <Text style={styles.title}>My First App! 🎉</Text>
-      
+      <Image source={require('../../assets/images/header-image.png')} style={styles.headerImage} />
+      <BannerCarousel />
+
       {/* Greeting Section */}
       <View style={styles.section}>
-        <Text style={styles.label}>What's your name?</Text>
+        <Text style={styles.label}>What's your favorite strain?</Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter your name"
+          placeholder="Enter your favorite strain"
           value={name}
           onChangeText={setName}
         />
         {name ? (
-          <Text style={styles.greeting}>Hello, {name}! 👋</Text>
+          <Text style={styles.greeting}>fr? {name}?? ...alright freak 👋</Text>
         ) : null}
       </View>
 
       {/* Counter Section */}
       <View style={styles.section}>
-        <Text style={styles.label}>Tap Counter</Text>
+        <Text style={styles.label}>How many times did you smoke today?</Text>
         <Text style={styles.counter}>{count}</Text>
         
         <View style={styles.buttonRow}>
@@ -76,9 +146,10 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#2c2c2c',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: 40,
     padding: 20,
   },
   title: {
@@ -86,6 +157,40 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 40,
+  },
+  headerImage: {
+    width: 280,
+    height: 84,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    marginBottom: 24,
+  },
+  carouselContainer: {
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  bannerImage: {
+    width: '100%',
+    height: 140,
+    resizeMode: 'cover',
+    borderRadius: 12,
+  },
+  dotsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 8,
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#bbb',
+    marginHorizontal: 6,
+  },
+  activeDot: {
+    backgroundColor: '#333',
   },
   section: {
     width: '100%',
@@ -107,7 +212,7 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 2,
-    borderColor: '#ddd',
+    borderColor: '#aaa',
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
