@@ -31,27 +31,143 @@ function BannerCarousel() {
     require('../../assets/mobilebanners/ICEDmobilebanner.png'),
   ];
 
-  const scrollRef = useRef(null as ScrollView | null);
-  const currentIndexRef = useRef(0);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  // For infinite scroll, duplicate first and last
+  const items = [banners[banners.length - 1], ...banners, banners[0]];
+  const scrollRef = useRef<ScrollView | null>(null);
+  const currentIndexRef = useRef(1); // start at the first real item (items[1])
+  const currentXRef = useRef(0);
+  const [currentIndex, setCurrentIndex] = useState(0); // user-facing index (0..banners.length-1)
   const bannerWidth = windowWidth - 40; // account for container padding
 
-  useEffect(() => {
-    const id = setInterval(() => {
-      const next = (currentIndexRef.current + 1) % banners.length;
-      scrollRef.current?.scrollTo({ x: next * bannerWidth, animated: true });
-      currentIndexRef.current = next;
-      setCurrentIndex(next);
-    }, 4000);
+  // autoplay settings
+  const AUTO_DELAY = 7000; // ms between auto scrolls (slower)
+  const ANIM_DURATION = 900; // ms for the scroll animation (slower)
 
-    return () => clearInterval(id);
+  // refs to manage autoplay and pause timeout
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    // on mount, position to the first real item
+    setTimeout(() => {
+      scrollRef.current?.scrollTo({ x: bannerWidth, animated: false });
+      currentXRef.current = bannerWidth;
+    }, 50);
+
+    startAutoPlay();
+
+    return () => {
+      stopAutoPlay();
+      if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bannerWidth]);
+
+  function startAutoPlay() {
+    stopAutoPlay();
+    intervalRef.current = setInterval(() => {
+      autoAdvance();
+    }, AUTO_DELAY);
+  }
+
+  function stopAutoPlay() {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  }
+
+  function pauseAutoplayFor(ms: number) {
+    // clear any existing pause timeout
+    if (pauseTimeoutRef.current) {
+      clearTimeout(pauseTimeoutRef.current);
+    }
+    stopAutoPlay();
+    pauseTimeoutRef.current = setTimeout(() => {
+      startAutoPlay();
+      pauseTimeoutRef.current = null;
+    }, ms);
+  }
+
+  // helper to perform a smooth scroll with controllable duration
+  function animateScrollTo(targetX: number, duration = ANIM_DURATION) {
+    const startX = currentXRef.current || 0;
+    const delta = targetX - startX;
+    if (delta === 0) return;
+    const start = Date.now();
+
+    function step() {
+      const now = Date.now();
+      const t = Math.min(1, (now - start) / duration);
+      // easeInOutQuad
+      const eased = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+      const x = startX + delta * eased;
+      scrollRef.current?.scrollTo({ x, animated: false });
+      if (t < 1) {
+        requestAnimationFrame(step);
+      } else {
+        currentXRef.current = targetX;
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  function autoAdvance() {
+    const next = currentIndexRef.current + 1;
+    const target = next * bannerWidth;
+    animateScrollTo(target, ANIM_DURATION);
+    currentIndexRef.current = next;
+    // update user-facing index after animation completes (approx)
+    setTimeout(() => {
+      syncIndexAfterScroll();
+    }, ANIM_DURATION + 50);
+  }
+
+  function syncIndexAfterScroll() {
+    // compute logical index within items
+    let idx = Math.round(currentXRef.current / bannerWidth);
+    // handle clones
+    if (idx === 0) {
+      // jumped to clone of last -> go to real last
+      const realIdx = banners.length;
+      scrollRef.current?.scrollTo({ x: realIdx * bannerWidth, animated: false });
+      currentIndexRef.current = realIdx;
+      currentXRef.current = realIdx * bannerWidth;
+      setCurrentIndex(realIdx - 1);
+    } else if (idx === items.length - 1) {
+      // jumped to clone of first -> go to real first
+      scrollRef.current?.scrollTo({ x: bannerWidth, animated: false });
+      currentIndexRef.current = 1;
+      currentXRef.current = bannerWidth;
+      setCurrentIndex(0);
+    } else {
+      currentIndexRef.current = idx;
+      currentXRef.current = idx * bannerWidth;
+      setCurrentIndex(idx - 1);
+    }
+  }
 
   function onMomentumScrollEnd(e: any) {
     const x = e.nativeEvent.contentOffset.x;
-    const idx = Math.round(x / bannerWidth);
-    currentIndexRef.current = idx;
-    setCurrentIndex(idx);
+    currentXRef.current = x;
+    let idx = Math.round(x / bannerWidth);
+    // if at cloned edges, jump without animation
+    if (idx === 0) {
+      const realIdx = banners.length;
+      scrollRef.current?.scrollTo({ x: realIdx * bannerWidth, animated: false });
+      currentIndexRef.current = realIdx;
+      currentXRef.current = realIdx * bannerWidth;
+      setCurrentIndex(realIdx - 1);
+    } else if (idx === items.length - 1) {
+      scrollRef.current?.scrollTo({ x: bannerWidth, animated: false });
+      currentIndexRef.current = 1;
+      currentXRef.current = bannerWidth;
+      setCurrentIndex(0);
+    } else {
+      currentIndexRef.current = idx;
+      setCurrentIndex(idx - 1);
+    }
   }
 
   return (
@@ -62,9 +178,25 @@ function BannerCarousel() {
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         onMomentumScrollEnd={onMomentumScrollEnd}
+        onScroll={(e) => {
+          currentXRef.current = e.nativeEvent.contentOffset.x;
+        }}
+        onScrollBeginDrag={() => {
+          // user started interacting — pause autoplay for 5s
+          pauseAutoplayFor(5000);
+        }}
+        onTouchStart={() => {
+          // also pause on touch start
+          pauseAutoplayFor(5000);
+        }}
+        onMomentumScrollBegin={() => {
+          // user initiated momentum — pause autoplay briefly
+          pauseAutoplayFor(5000);
+        }}
+        scrollEventThrottle={16}
         contentContainerStyle={{ alignItems: 'center' }}
       >
-        {banners.map((src, i) => (
+        {items.map((src, i) => (
           <View key={i} style={{ width: bannerWidth, alignItems: 'center' }}>
             <Image source={src} style={styles.bannerImage} />
           </View>
@@ -81,64 +213,18 @@ function BannerCarousel() {
 }
 
 export default function App() {
-  // STATE: These are values that can change in your app
-  const [count, setCount] = useState(0);
-  const [name, setName] = useState('');
+
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
       {/* Header */}
       <Image source={require('../../assets/images/header-image.png')} style={styles.headerImage} />
+      <Text style={styles.title}>San Francisco's Original Dispensary and Lounge</Text>
+      <Image source={require('../../assets/images/divider.png')} style={styles.divider} />
+      {/* Deals Carousel */}
       <BannerCarousel />
-
-      {/* Greeting Section */}
-      <View style={styles.section}>
-        <Text style={styles.label}>What's your favorite strain?</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your favorite strain"
-          value={name}
-          onChangeText={setName}
-        />
-        {name ? (
-          <Text style={styles.greeting}>fr? {name}?? ...alright freak 👋</Text>
-        ) : null}
-      </View>
-
-      {/* Counter Section */}
-      <View style={styles.section}>
-        <Text style={styles.label}>How many times did you smoke today?</Text>
-        <Text style={styles.counter}>{count}</Text>
-        
-        <View style={styles.buttonRow}>
-          <TouchableOpacity 
-            style={[styles.button, styles.decrementButton]}
-            onPress={() => setCount(count - 1)}
-          >
-            <Text style={styles.buttonText}>-</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity 
-            style={[styles.button, styles.resetButton]}
-            onPress={() => setCount(0)}
-          >
-            <Text style={styles.buttonText}>Reset</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity 
-            style={[styles.button, styles.incrementButton]}
-            onPress={() => setCount(count + 1)}
-          >
-            <Text style={styles.buttonText}>+</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* Fun Message */}
-      <Text style={styles.footer}>
-        Keep learning! You're doing great! 🚀
-      </Text>
-    </View>
+    
+    </ScrollView>
   );
 }
 
@@ -147,16 +233,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#2c2c2c',
+  },
+  contentContainer: {
     alignItems: 'center',
-    justifyContent: 'flex-start',
     paddingTop: 40,
     padding: 20,
   },
   title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 40,
+    fontSize: 24,
+    fontFamily: 'Adamina-Regular',
+    color: '#FCBF27',
+    textAlign: 'center',
+    marginBottom: 24
+,
   },
   headerImage: {
     width: 280,
@@ -175,6 +264,12 @@ const styles = StyleSheet.create({
     height: 140,
     resizeMode: 'cover',
     borderRadius: 12,
+  },
+  divider: {
+    maxWidth: '80%',
+    height: 15,
+    alignContent: 'center',
+    marginBottom: 24,
   },
   dotsContainer: {
     flexDirection: 'row',
