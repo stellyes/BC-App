@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { CartProvider } from '@/contexts/CartContext';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete
 SplashScreen.preventAutoHideAsync();
@@ -21,8 +22,10 @@ export default function RootLayout() {
   const [loaded, error] = useFonts({
     'Adamina-Regular': require('../assets/webfonts/Adamina-Regular.ttf'),
     'Poppins-Bold': require('../assets/webfonts/Poppins-Bold.ttf'),
+    'Poppins-BoldItalic': require('../assets/webfonts/Poppins-BoldItalic.ttf'),
     'Poppins-Regular': require('../assets/webfonts/Poppins-Regular.ttf'),
     'Poppins-Medium': require('../assets/webfonts/Poppins-Medium.ttf'),
+    'Poppins-MediumItalic': require('../assets/webfonts/Poppins-MediumItalic.ttf'),
     'Poppins-Light': require('../assets/webfonts/Poppins-Light.ttf'),
     'Poppins-LightItalic': require('../assets/webfonts/Poppins-LightItalic.ttf')
   });
@@ -38,12 +41,14 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <CartProvider>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+        </Stack>
+        <StatusBar style="auto" />
+      </ThemeProvider>
+    </CartProvider>
   );
 }

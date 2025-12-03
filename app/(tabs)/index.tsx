@@ -3,12 +3,14 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
-  TextInput,
+  Button,
   Image,
   ScrollView,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
+import { useRouter } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
 
 /**
  * WELCOME TO YOUR FIRST APP!
@@ -212,6 +214,65 @@ function BannerCarousel() {
   );
 }
 
+function MenuIconsScroll() {
+  const router = useRouter();
+
+  const menuIcons = [
+    { id: 'flower', name: 'Flower', source: require('../../assets/menu-icons/flower.png') },
+    { id: 'preroll', name: 'Pre-Roll', source: require('../../assets/menu-icons/preroll.png') },
+    { id: 'edible', name: 'Edible', source: require('../../assets/menu-icons/edible.png') },
+    { id: 'extract', name: 'Extract', source: require('../../assets/menu-icons/extract.png') },
+    { id: 'beverage', name: 'Beverage', source: require('../../assets/menu-icons/beverage.png') },
+    { id: 'tincture', name: 'Tincture', source: require('../../assets/menu-icons/tincture.png') },
+    { id: 'topical', name: 'Topical', source: require('../../assets/menu-icons/topical.png') },
+    { id: 'pill', name: 'Pill', source: require('../../assets/menu-icons/pill.png') },
+    { id: 'merch', name: 'Merch', source: require('../../assets/menu-icons/merch.png') },
+    { id: 'cart', name: 'Cart', source: require('../../assets/menu-icons/cart.png') },
+  ];
+
+  const handleIconPress = () => {
+    router.push('/shop');
+  };
+
+  return (
+    <View style={styles.menuIconsContainer}>
+      <LinearGradient
+        colors={['#121212', 'transparent']}
+        start={{ x: 0, y: 0.5 }}
+        end={{ x: 1, y: 0.5 }}
+        style={styles.gradientLeft}
+        pointerEvents="none"
+      />
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.menuIconsContent}
+        decelerationRate="fast"
+        snapToInterval={90}
+      >
+        {menuIcons.map((icon) => (
+          <TouchableOpacity
+            key={icon.id}
+            style={styles.menuIconItem}
+            onPress={handleIconPress}
+            activeOpacity={0.7}
+          >
+            <Image source={icon.source} style={styles.menuIcon} />
+            <Text style={styles.menuIconText}>{icon.name}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+      <LinearGradient
+        colors={['transparent', '#121212']}
+        start={{ x: 0, y: 0.5 }}
+        end={{ x: 1, y: 0.5 }}
+        style={styles.gradientRight}
+        pointerEvents="none"
+      />
+    </View>
+  );
+}
+
 export default function App() {
 
 
@@ -220,10 +281,24 @@ export default function App() {
       {/* Header */}
       <Image source={require('../../assets/images/header-image.png')} style={styles.headerImage} />
       <Text style={styles.title}>San Francisco's Original Dispensary and Lounge</Text>
+
+      {/* Divider */}
       <Image source={require('../../assets/images/divider.png')} style={styles.divider} />
+
       {/* Deals Carousel */}
+      <Text style={styles.label}>Daily Deals!</Text>
       <BannerCarousel />
-    
+
+      {/* Divider */}
+      <Image source={require('../../assets/images/divider.png')} style={styles.divider} />
+
+      {/* Menu Icons Scroll */}
+      <Text style={styles.label}>Shop By Category</Text>
+      <MenuIconsScroll />
+
+      {/* Divider */}
+      <Image source={require('../../assets/images/divider.png')} style={styles.divider} />
+
     </ScrollView>
   );
 }
@@ -232,7 +307,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#2c2c2c',
+    backgroundColor: '#121212',
   },
   contentContainer: {
     alignItems: 'center',
@@ -245,7 +320,6 @@ const styles = StyleSheet.create({
     color: '#FCBF27',
     textAlign: 'center',
     marginBottom: 24
-,
   },
   headerImage: {
     width: 280,
@@ -257,7 +331,7 @@ const styles = StyleSheet.create({
   carouselContainer: {
     width: '100%',
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: 24,
   },
   bannerImage: {
     width: '100%',
@@ -266,7 +340,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   divider: {
-    maxWidth: '80%',
+    maxWidth: '100%',
     height: 15,
     alignContent: 'center',
     marginBottom: 24,
@@ -300,9 +374,15 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   label: {
-    fontSize: 18,
+    fontSize: 24,
+    fontFamily: 'Poppins-BoldItalic',
     fontWeight: '600',
-    color: '#555',
+    letterSpacing: 1.5,
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.9,
+    shadowRadius: 3,
+    color: '#FCBF27',
     marginBottom: 12,
   },
   input: {
@@ -337,15 +417,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
   },
-  incrementButton: {
-    backgroundColor: '#4CAF50',
-  },
-  decrementButton: {
-    backgroundColor: '#f44336',
-  },
-  resetButton: {
-    backgroundColor: '#FF9800',
-  },
   buttonText: {
     color: 'white',
     fontSize: 20,
@@ -356,5 +427,48 @@ const styles = StyleSheet.create({
     color: '#888',
     marginTop: 20,
     textAlign: 'center',
+  },
+  menuIconsContainer: {
+    width: '100%',
+    height: 120,
+    position: 'relative',
+    marginBottom: 24,
+  },
+  menuIconsContent: {
+    paddingHorizontal: 20,
+    alignItems: 'center',
+  },
+  menuIconItem: {
+    width: 70,
+    alignItems: 'center',
+    marginRight: 10,
+  },
+  menuIcon: {
+    width: 82,
+    height: 82,
+    resizeMode: 'stretch',
+    marginBottom: 8,
+  },
+  menuIconText: {
+    fontSize: 12,
+    fontFamily: 'Poppins-Regular',
+    color: '#FCBF27',
+    textAlign: 'center',
+  },
+  gradientLeft: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    width: 40,
+    zIndex: 1,
+  },
+  gradientRight: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    bottom: 0,
+    width: 40,
+    zIndex: 1,
   },
 });

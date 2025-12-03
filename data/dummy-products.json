@@ -1,0 +1,473 @@
+{
+  "resultCode": "SUCCESS",
+  "resultReason": null,
+  "resultDetail": null,
+  "data": {
+    "page_elements": 30,
+    "total_elements": 30,
+    "stock": [
+      {
+        "product_id": "1",
+        "product_name": "Orange Creamsicle",
+        "product_brand": "Cantrip",
+        "product_type": "BEVERAGE",
+        "product_subtype": "Sparkling Water",
+        "product_uom": "ML",
+        "classification": "Hybrid",
+        "potency": "5mg",
+        "price": 8.99,
+        "weight": "355ml",
+        "image_url": "https://via.placeholder.com/150/FF6B35/ffffff?text=Beverage",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 24.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "2",
+        "product_name": "Lemon Ginger",
+        "product_brand": "Keef",
+        "product_type": "BEVERAGE",
+        "product_subtype": "Soda",
+        "product_uom": "ML",
+        "classification": "CBD",
+        "potency": "10mg",
+        "price": 12.99,
+        "weight": "355ml",
+        "image_url": "https://via.placeholder.com/150/F7B801/ffffff?text=Beverage",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 18.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "3",
+        "product_name": "Blue Dream",
+        "product_brand": "Heavy Hitters",
+        "product_type": "CARTRIDGE",
+        "product_subtype": "510 Thread",
+        "product_uom": "GRAMS",
+        "classification": "Sativa",
+        "potency": "89%",
+        "price": 45.00,
+        "weight": "1g",
+        "image_url": "https://via.placeholder.com/150/4ECDC4/ffffff?text=Cartridge",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 12.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "4",
+        "product_name": "Lava Cake",
+        "product_brand": "Heavy Hitters",
+        "product_type": "CARTRIDGE",
+        "product_subtype": "510 Thread",
+        "product_uom": "GRAMS",
+        "classification": "Indica",
+        "potency": "92%",
+        "price": 45.00,
+        "weight": "1g",
+        "image_url": "https://via.placeholder.com/150/1A535C/ffffff?text=Cartridge",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 8.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "5",
+        "product_name": "Strawberry Gummies",
+        "product_brand": "Kiva",
+        "product_type": "EDIBLE",
+        "product_subtype": "Gummies",
+        "product_uom": "MG",
+        "classification": "Hybrid",
+        "potency": "100mg",
+        "price": 24.99,
+        "weight": "10pk",
+        "image_url": "https://via.placeholder.com/150/E74C3C/ffffff?text=Edible",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 30.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "6",
+        "product_name": "Dark Chocolate Bar",
+        "product_brand": "Kiva",
+        "product_type": "EDIBLE",
+        "product_subtype": "Chocolate",
+        "product_uom": "MG",
+        "classification": "I/S",
+        "potency": "100mg",
+        "price": 22.00,
+        "weight": "100g",
+        "image_url": "https://via.placeholder.com/150/8B4513/ffffff?text=Edible",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 15.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "7",
+        "product_name": "Live Resin",
+        "product_brand": "Raw Garden",
+        "product_type": "EXTRACT",
+        "product_subtype": "Sauce",
+        "product_uom": "GRAMS",
+        "classification": "Hybrid",
+        "potency": "78%",
+        "price": 55.00,
+        "weight": "1g",
+        "image_url": "https://via.placeholder.com/150/FFD700/ffffff?text=Extract",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 6.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "8",
+        "product_name": "Crumble",
+        "product_brand": "Raw Garden",
+        "product_type": "EXTRACT",
+        "product_subtype": "Crumble",
+        "product_uom": "GRAMS",
+        "classification": "Sativa",
+        "potency": "82%",
+        "price": 50.00,
+        "weight": "1g",
+        "image_url": "https://via.placeholder.com/150/DAA520/ffffff?text=Extract",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 10.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "9",
+        "product_name": "Wedding Cake",
+        "product_brand": "Cookies",
+        "product_type": "FLOWER",
+        "product_subtype": null,
+        "product_uom": "GRAMS",
+        "classification": "Indica",
+        "potency": "28%",
+        "price": 60.00,
+        "weight": "3.5g",
+        "image_url": "https://via.placeholder.com/150/228B22/ffffff?text=Flower",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 20.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "10",
+        "product_name": "Jack Herer",
+        "product_brand": "Humboldt",
+        "product_type": "FLOWER",
+        "product_subtype": null,
+        "product_uom": "GRAMS",
+        "classification": "Sativa",
+        "potency": "24%",
+        "price": 50.00,
+        "weight": "3.5g",
+        "image_url": "https://via.placeholder.com/150/32CD32/ffffff?text=Flower",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 25.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "11",
+        "product_name": "OG Kush",
+        "product_brand": "Cookies",
+        "product_type": "FLOWER",
+        "product_subtype": null,
+        "product_uom": "GRAMS",
+        "classification": "S/I",
+        "potency": "26%",
+        "price": 55.00,
+        "weight": "3.5g",
+        "image_url": "https://via.placeholder.com/150/2E8B57/ffffff?text=Flower",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 18.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "12",
+        "product_name": "Rolling Tray",
+        "product_brand": "Raw",
+        "product_type": "MERCH",
+        "product_subtype": "Accessory",
+        "product_uom": null,
+        "classification": null,
+        "potency": null,
+        "price": 15.99,
+        "weight": null,
+        "image_url": "https://via.placeholder.com/150/808080/ffffff?text=Merch",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 12.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "13",
+        "product_name": "Glass Pipe",
+        "product_brand": "Grav Labs",
+        "product_type": "MERCH",
+        "product_subtype": "Smoking Device",
+        "product_uom": null,
+        "classification": null,
+        "potency": null,
+        "price": 29.99,
+        "weight": null,
+        "image_url": "https://via.placeholder.com/150/A9A9A9/ffffff?text=Merch",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 8.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "14",
+        "product_name": "CBD Capsules",
+        "product_brand": "Care By Design",
+        "product_type": "PILL",
+        "product_subtype": "Capsule",
+        "product_uom": "MG",
+        "classification": "CBD",
+        "potency": "500mg",
+        "price": 35.00,
+        "weight": "30ct",
+        "image_url": "https://via.placeholder.com/150/4169E1/ffffff?text=Pill",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 15.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "15",
+        "product_name": "THC Capsules",
+        "product_brand": "Care By Design",
+        "product_type": "PILL",
+        "product_subtype": "Capsule",
+        "product_uom": "MG",
+        "classification": "Hybrid",
+        "potency": "250mg",
+        "price": 30.00,
+        "weight": "10ct",
+        "image_url": "https://via.placeholder.com/150/6495ED/ffffff?text=Pill",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 20.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "16",
+        "product_name": "Gelato",
+        "product_brand": "Stiiizy",
+        "product_type": "PREROLL",
+        "product_subtype": "Infused",
+        "product_uom": "GRAMS",
+        "classification": "Indica",
+        "potency": "35%",
+        "price": 18.00,
+        "weight": "1g",
+        "image_url": "https://via.placeholder.com/150/CD5C5C/ffffff?text=Preroll",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 40.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "17",
+        "product_name": "Sour Diesel",
+        "product_brand": "Stiiizy",
+        "product_type": "PREROLL",
+        "product_subtype": "Regular",
+        "product_uom": "GRAMS",
+        "classification": "Sativa",
+        "potency": "22%",
+        "price": 12.00,
+        "weight": "1g",
+        "image_url": "https://via.placeholder.com/150/FA8072/ffffff?text=Preroll",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 35.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "18",
+        "product_name": "Mixed Pack",
+        "product_brand": "Stiiizy",
+        "product_type": "PREROLL",
+        "product_subtype": "Pack",
+        "product_uom": "GRAMS",
+        "classification": "Hybrid",
+        "potency": "24%",
+        "price": 35.00,
+        "weight": "5pk",
+        "image_url": "https://via.placeholder.com/150/E9967A/ffffff?text=Preroll",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 22.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "19",
+        "product_name": "CBD Drops",
+        "product_brand": "Charlotte's Web",
+        "product_type": "TINCTURE",
+        "product_subtype": "Oil",
+        "product_uom": "ML",
+        "classification": "CBD",
+        "potency": "500mg",
+        "price": 45.00,
+        "weight": "30ml",
+        "image_url": "https://via.placeholder.com/150/9370DB/ffffff?text=Tincture",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 14.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "20",
+        "product_name": "1:1 THC:CBD Drops",
+        "product_brand": "Care By Design",
+        "product_type": "TINCTURE",
+        "product_subtype": "Oil",
+        "product_uom": "ML",
+        "classification": "Hybrid",
+        "potency": "1000mg",
+        "price": 60.00,
+        "weight": "30ml",
+        "image_url": "https://via.placeholder.com/150/BA55D3/ffffff?text=Tincture",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 10.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "21",
+        "product_name": "Pain Relief Balm",
+        "product_brand": "Papa & Barkley",
+        "product_type": "TOPICAL",
+        "product_subtype": "Balm",
+        "product_uom": "MG",
+        "classification": "CBD",
+        "potency": "300mg",
+        "price": 40.00,
+        "weight": "50ml",
+        "image_url": "https://via.placeholder.com/150/20B2AA/ffffff?text=Topical",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 16.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      },
+      {
+        "product_id": "22",
+        "product_name": "THC Lotion",
+        "product_brand": "Papa & Barkley",
+        "product_type": "TOPICAL",
+        "product_subtype": "Lotion",
+        "product_uom": "MG",
+        "classification": "Hybrid",
+        "potency": "200mg",
+        "price": 35.00,
+        "weight": "100ml",
+        "image_url": "https://via.placeholder.com/150/48D1CC/ffffff?text=Topical",
+        "inventory_details": [
+          {
+            "location_name": "RETAIL",
+            "inventory_type": "ADULT",
+            "sellable_quantity": 12.0,
+            "last_updated_at": "2023-02-16T20:41:21.000-08:00"
+          }
+        ]
+      }
+    ]
+  }
+}
