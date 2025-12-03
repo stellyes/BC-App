@@ -84,7 +84,7 @@ export default function FilterMenu({
           {/* Fixed Cart Section */}
           <TouchableOpacity style={styles.cartSection} onPress={onCartPress}>
             <View style={styles.cartIconContainer}>
-              <Ionicons name="cart" size={32} color="#333" />
+              <Ionicons name="cart" size={32} color="#FCBF27" />
               <View style={styles.cartBadge}>
                 <Text style={styles.cartBadgeText}>{cartItemCount}</Text>
               </View>
@@ -105,7 +105,7 @@ export default function FilterMenu({
                 <Ionicons
                   name={expandedCategories ? 'chevron-up' : 'chevron-down'}
                   size={20}
-                  color="#666"
+                  color="#FCBF27"
                 />
               </TouchableOpacity>
               {expandedCategories && (
@@ -124,7 +124,7 @@ export default function FilterMenu({
                         ]}
                       >
                         {filters.categories.includes(category) && (
-                          <Ionicons name="checkmark" size={16} color="#fff" />
+                          <Ionicons name="checkmark" size={16} color="#121212" />
                         )}
                       </View>
                       <Text style={styles.checkboxLabel}>{category}</Text>
@@ -170,7 +170,7 @@ export default function FilterMenu({
                       ]}
                     >
                       {filters.classifications.includes(classification) && (
-                        <Ionicons name="checkmark" size={16} color="#fff" />
+                        <Ionicons name="checkmark" size={16} color="#121212" />
                       )}
                     </View>
                     <Text style={styles.checkboxLabel}>{classification}</Text>
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
   menuContainer: {
     width: '50%',
     height: '100%',
-    backgroundColor: '#fff',
+    backgroundColor: '#121212',
     paddingVertical: 20,
     paddingHorizontal: 16,
   },
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -8,
     right: -8,
-    backgroundColor: '#e74c3c',
+    backgroundColor: '#FCBF27',
     borderRadius: 12,
     minWidth: 24,
     height: 24,
@@ -277,13 +277,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
   },
   cartBadgeText: {
-    color: '#fff',
+    color: '#121212',
     fontSize: 12,
+    fontFamily: 'Poppins-BoldItalic',
     fontWeight: '700',
   },
   divider: {
     height: 1,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#FCBF27',
     marginVertical: 12,
   },
   filterSection: {
@@ -297,8 +298,9 @@ const styles = StyleSheet.create({
   },
   filterTitle: {
     fontSize: 16,
+    fontFamily: 'Poppins-BoldItalic',
     fontWeight: '700',
-    color: '#333',
+    color: '#FCBF27',
     marginBottom: 8,
   },
   filterContent: {
@@ -314,27 +316,30 @@ const styles = StyleSheet.create({
     height: 24,
     borderRadius: 4,
     borderWidth: 2,
-    borderColor: '#ccc',
+    borderColor: '#FCBF27',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
   },
   checkboxChecked: {
-    backgroundColor: '#4a90e2',
-    borderColor: '#4a90e2',
+    backgroundColor: '#FCBF27',
+    borderColor: '#FCBF27',
   },
   checkboxLabel: {
     fontSize: 14,
-    color: '#333',
+    fontFamily: 'Poppins-Regular',
+    color: '#FCBF27',
   },
   textInput: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#FCBF27',
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 10,
     fontSize: 14,
-    backgroundColor: '#f9f9f9',
+    fontFamily: 'Poppins-Regular',
+    backgroundColor: '#1a1a1a',
+    color: '#FCBF27',
   },
   potencyContainer: {
     gap: 12,
@@ -352,33 +357,35 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: '#ccc',
-    backgroundColor: '#f9f9f9',
+    borderColor: '#FCBF27',
+    backgroundColor: '#1a1a1a',
     alignItems: 'center',
   },
   unitButtonActive: {
-    backgroundColor: '#4a90e2',
-    borderColor: '#4a90e2',
+    backgroundColor: '#FCBF27',
+    borderColor: '#FCBF27',
   },
   unitButtonText: {
     fontSize: 14,
-    color: '#666',
+    fontFamily: 'Poppins-Regular',
+    color: '#FCBF27',
     fontWeight: '600',
   },
   unitButtonTextActive: {
-    color: '#fff',
+    color: '#121212',
   },
   clearButton: {
     marginTop: 20,
     marginBottom: 20,
     paddingVertical: 12,
-    backgroundColor: '#e74c3c',
+    backgroundColor: '#FCBF27',
     borderRadius: 8,
     alignItems: 'center',
   },
   clearButtonText: {
-    color: '#fff',
+    color: '#121212',
     fontSize: 16,
+    fontFamily: 'Poppins-BoldItalic',
     fontWeight: '700',
   },
 });

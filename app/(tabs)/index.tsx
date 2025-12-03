@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
+import eventsData from '../../data/dummy-events.json';
+import { useUser } from '../../contexts/UserContext';
 
 /**
  * WELCOME TO YOUR FIRST APP!
@@ -23,6 +25,32 @@ import { LinearGradient } from 'expo-linear-gradient';
  */
 
 const { width: windowWidth } = Dimensions.get('window');
+
+const EVENT_IMAGES: { [key: string]: any } = {
+  dummy_event_1: require('../../assets/events/dummy_event_1.jpg'),
+  dummy_event_2: require('../../assets/events/dummy_event_2.jpg'),
+  dummy_event_3: require('../../assets/events/dummy_event_3.jpg'),
+  dummy_event_4: require('../../assets/events/dummy_event_4.jpg'),
+  dummy_event_5: require('../../assets/events/dummy_event_5.jpg'),
+  dummy_event_6: require('../../assets/events/dummy_event_6.jpg'),
+  dummy_event_7: require('../../assets/events/dummy_event_7.jpg'),
+  dummy_event_8: require('../../assets/events/dummy_event_8.jpg'),
+  dummy_event_9: require('../../assets/events/dummy_event_9.jpg'),
+  dummy_event_10: require('../../assets/events/dummy_event_10.jpg'),
+  dummy_event_11: require('../../assets/events/dummy_event_11.jpg'),
+  dummy_event_12: require('../../assets/events/dummy_event_12.jpg'),
+};
+
+interface Event {
+  id: string;
+  title: string;
+  photo: string;
+  description: string;
+  start_time: string;
+  end_time: string;
+  location: string;
+  tags: string;
+}
 
 function BannerCarousel() {
   const banners = [
@@ -218,20 +246,23 @@ function MenuIconsScroll() {
   const router = useRouter();
 
   const menuIcons = [
-    { id: 'flower', name: 'Flower', source: require('../../assets/menu-icons/flower.png') },
-    { id: 'preroll', name: 'Pre-Roll', source: require('../../assets/menu-icons/preroll.png') },
-    { id: 'edible', name: 'Edible', source: require('../../assets/menu-icons/edible.png') },
-    { id: 'extract', name: 'Extract', source: require('../../assets/menu-icons/extract.png') },
-    { id: 'beverage', name: 'Beverage', source: require('../../assets/menu-icons/beverage.png') },
-    { id: 'tincture', name: 'Tincture', source: require('../../assets/menu-icons/tincture.png') },
-    { id: 'topical', name: 'Topical', source: require('../../assets/menu-icons/topical.png') },
-    { id: 'pill', name: 'Pill', source: require('../../assets/menu-icons/pill.png') },
-    { id: 'merch', name: 'Merch', source: require('../../assets/menu-icons/merch.png') },
-    { id: 'cart', name: 'Cart', source: require('../../assets/menu-icons/cart.png') },
+    { id: 'flower', name: 'Flower', category: 'FLOWER', source: require('../../assets/menu-icons/flower.png') },
+    { id: 'preroll', name: 'Pre-Roll', category: 'PREROLL', source: require('../../assets/menu-icons/preroll.png') },
+    { id: 'edible', name: 'Edible', category: 'EDIBLE', source: require('../../assets/menu-icons/edible.png') },
+    { id: 'extract', name: 'Extract', category: 'EXTRACT', source: require('../../assets/menu-icons/extract.png') },
+    { id: 'beverage', name: 'Beverage', category: 'BEVERAGE', source: require('../../assets/menu-icons/beverage.png') },
+    { id: 'tincture', name: 'Tincture', category: 'TINCTURE', source: require('../../assets/menu-icons/tincture.png') },
+    { id: 'topical', name: 'Topical', category: 'TOPICAL', source: require('../../assets/menu-icons/topical.png') },
+    { id: 'pill', name: 'Pill', category: 'PILL', source: require('../../assets/menu-icons/pill.png') },
+    { id: 'merch', name: 'Merch', category: 'MERCH', source: require('../../assets/menu-icons/merch.png') },
+    { id: 'cart', name: 'Cart', category: 'CARTRIDGE', source: require('../../assets/menu-icons/cart.png') },
   ];
 
-  const handleIconPress = () => {
-    router.push('/shop');
+  const handleIconPress = (category: string) => {
+    router.push({
+      pathname: '/shop',
+      params: { category },
+    });
   };
 
   return (
@@ -254,7 +285,7 @@ function MenuIconsScroll() {
           <TouchableOpacity
             key={icon.id}
             style={styles.menuIconItem}
-            onPress={handleIconPress}
+            onPress={() => handleIconPress(icon.category)}
             activeOpacity={0.7}
           >
             <Image source={icon.source} style={styles.menuIcon} />
@@ -273,8 +304,81 @@ function MenuIconsScroll() {
   );
 }
 
-export default function App() {
+function UpcomingEvent() {
+  const router = useRouter();
+  const events: Event[] = eventsData.data;
 
+  const getNextUpcomingEvent = () => {
+    const now = new Date();
+    const upcomingEvents = events
+      .filter(event => new Date(event.start_time) > now)
+      .sort((a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime());
+
+    return upcomingEvents.length > 0 ? upcomingEvents[0] : null;
+  };
+
+  const formatEventTime = (startTime: string, endTime: string) => {
+    const start = new Date(startTime);
+    const end = new Date(endTime);
+
+    const dateStr = start.toLocaleDateString('en-US', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    });
+
+    const startTimeStr = start.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    });
+
+    const endTimeStr = end.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    });
+
+    return {
+      date: dateStr,
+      time: `${startTimeStr} - ${endTimeStr}`
+    };
+  };
+
+  const nextEvent = getNextUpcomingEvent();
+
+  if (!nextEvent) {
+    return null;
+  }
+
+  const { date, time } = formatEventTime(nextEvent.start_time, nextEvent.end_time);
+
+  return (
+    <TouchableOpacity
+      style={styles.upcomingEventContainer}
+      onPress={() => router.push('/entertainment')}
+      activeOpacity={0.8}
+    >
+      <Image
+        source={EVENT_IMAGES[nextEvent.photo]}
+        style={styles.eventImage}
+        resizeMode="cover"
+      />
+      <View style={styles.eventInfo}>
+        <Text style={styles.eventTitle} numberOfLines={2}>{nextEvent.title}</Text>
+        <Text style={styles.eventDate}>{date}</Text>
+        <Text style={styles.eventTime}>{time}</Text>
+        <Text style={styles.eventDescription} numberOfLines={3}>
+          {nextEvent.description}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+}
+
+export default function App() {
+  const { isLoggedIn, userData } = useUser();
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -284,6 +388,14 @@ export default function App() {
 
       {/* Divider */}
       <Image source={require('../../assets/images/divider.png')} style={styles.divider} />
+
+      {/* Welcome Message for Logged In Users */}
+      {isLoggedIn && userData && (
+        <>
+          <Text style={styles.welcomeMessage}>Welcome back, {userData.firstName}!</Text>
+          <Image source={require('../../assets/images/divider.png')} style={styles.divider} />
+        </>
+      )}
 
       {/* Deals Carousel */}
       <Text style={styles.label}>Daily Deals!</Text>
@@ -298,6 +410,10 @@ export default function App() {
 
       {/* Divider */}
       <Image source={require('../../assets/images/divider.png')} style={styles.divider} />
+
+      {/* Upcoming Event */}
+      <Text style={styles.label}>Next Event</Text>
+      <UpcomingEvent />
 
     </ScrollView>
   );
@@ -320,6 +436,14 @@ const styles = StyleSheet.create({
     color: '#FCBF27',
     textAlign: 'center',
     marginBottom: 24
+  },
+  welcomeMessage: {
+    fontSize: 20,
+    fontFamily: 'Poppins-BoldItalic',
+    fontWeight: '700',
+    color: '#FCBF27',
+    textAlign: 'center',
+    marginBottom: 24,
   },
   headerImage: {
     width: 280,
@@ -470,5 +594,48 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: 40,
     zIndex: 1,
+  },
+  upcomingEventContainer: {
+    width: '100%',
+    backgroundColor: '#1a1a1a',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#FCBF27',
+    overflow: 'hidden',
+    marginBottom: 24,
+  },
+  eventImage: {
+    width: '100%',
+    height: 200,
+    backgroundColor: '#121212',
+  },
+  eventInfo: {
+    padding: 16,
+  },
+  eventTitle: {
+    fontSize: 20,
+    fontFamily: 'Poppins-BoldItalic',
+    fontWeight: '700',
+    color: '#FCBF27',
+    marginBottom: 8,
+  },
+  eventDate: {
+    fontSize: 14,
+    fontFamily: 'Poppins-Regular',
+    color: '#FCBF27',
+    marginBottom: 4,
+  },
+  eventTime: {
+    fontSize: 14,
+    fontFamily: 'Poppins-Regular',
+    color: '#FCBF27',
+    marginBottom: 12,
+  },
+  eventDescription: {
+    fontSize: 13,
+    fontFamily: 'Poppins-Regular',
+    color: '#FCBF27',
+    opacity: 0.9,
+    lineHeight: 20,
   },
 });

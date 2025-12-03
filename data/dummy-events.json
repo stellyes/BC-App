@@ -1,0 +1,124 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "title": "Live Jazz Night",
+      "photo": "dummy_event_5",
+      "description": "Join us for an evening of smooth jazz with local artists. Enjoy craft cocktails and good vibes in our lounge.",
+      "start_time": "2024-11-15T19:00:00",
+      "end_time": "2024-11-15T22:00:00",
+      "location": "952 Mission St, San Francisco, CA 94103",
+      "tags": "music,jazz,live,entertainment,lounge"
+    },
+    {
+      "id": "2",
+      "title": "Cannabis Education Workshop",
+      "photo": "dummy_event_2",
+      "description": "Learn about different strains, consumption methods, and responsible use. Expert-led workshop with Q&A session.",
+      "start_time": "2024-11-22T14:00:00",
+      "end_time": "2024-11-22T16:00:00",
+      "location": "952 Mission St, San Francisco, CA 94103",
+      "tags": "education,workshop,cannabis,learning"
+    },
+    {
+      "id": "3",
+      "title": "Comedy Open Mic",
+      "photo": "dummy_event_8",
+      "description": "Laugh the night away with SF's funniest up-and-coming comedians. Free entry, 21+ only.",
+      "start_time": "2024-11-29T20:00:00",
+      "end_time": "2024-11-29T23:00:00",
+      "location": "952 Mission St, San Francisco, CA 94103",
+      "tags": "comedy,entertainment,open-mic,nightlife"
+    },
+    {
+      "id": "4",
+      "title": "Yoga & Meditation Session",
+      "photo": "dummy_event_1",
+      "description": "Start your day with mindfulness. Beginner-friendly yoga and guided meditation. Mats provided.",
+      "start_time": "2025-12-05T10:00:00",
+      "end_time": "2025-12-05T11:30:00",
+      "location": "952 Mission St, San Francisco, CA 94103",
+      "tags": "wellness,yoga,meditation,health"
+    },
+    {
+      "id": "5",
+      "title": "Trivia Night",
+      "photo": "dummy_event_11",
+      "description": "Test your knowledge! Teams of up to 6. Prizes for top 3 teams. Topics include pop culture, history, and cannabis facts.",
+      "start_time": "2025-12-12T19:00:00",
+      "end_time": "2025-12-12T21:30:00",
+      "location": "952 Mission St, San Francisco, CA 94103",
+      "tags": "trivia,games,social,entertainment"
+    },
+    {
+      "id": "6",
+      "title": "DJ Night: House & Techno",
+      "photo": "dummy_event_6",
+      "description": "Dance the night away with DJ Elektra spinning house and techno. Full bar available.",
+      "start_time": "2025-12-14T21:00:00",
+      "end_time": "2025-12-15T02:00:00",
+      "location": "952 Mission St, San Francisco, CA 94103",
+      "tags": "music,dj,dance,nightlife,electronic"
+    },
+    {
+      "id": "7",
+      "title": "Paint & Puff",
+      "photo": "dummy_event_3",
+      "description": "Unleash your creativity! All art supplies included. No experience necessary. Take home your masterpiece.",
+      "start_time": "2025-12-21T15:00:00",
+      "end_time": "2025-12-21T18:00:00",
+      "location": "952 Mission St, San Francisco, CA 94103",
+      "tags": "art,creative,social,workshop"
+    },
+    {
+      "id": "8",
+      "title": "Sunday Brunch & Beats",
+      "photo": "dummy_event_9",
+      "description": "Relax with brunch specials and chill beats from our resident DJ. Limited seating, reserve ahead.",
+      "start_time": "2025-12-22T11:00:00",
+      "end_time": "2025-12-22T14:00:00",
+      "location": "952 Mission St, San Francisco, CA 94103",
+      "tags": "brunch,music,food,social"
+    },
+    {
+      "id": "9",
+      "title": "Product Launch: New Strains",
+      "photo": "dummy_event_4",
+      "description": "Be the first to try our latest premium strains. Special launch pricing and free samples for attendees.",
+      "start_time": "2025-12-28T17:00:00",
+      "end_time": "2025-12-28T20:00:00",
+      "location": "952 Mission St, San Francisco, CA 94103",
+      "tags": "product-launch,cannabis,new,special"
+    },
+    {
+      "id": "10",
+      "title": "Acoustic Lounge",
+      "photo": "dummy_event_7",
+      "description": "Intimate acoustic performances featuring local singer-songwriters. Cozy atmosphere, craft drinks.",
+      "start_time": "2026-01-03T19:00:00",
+      "end_time": "2026-01-03T22:00:00",
+      "location": "952 Mission St, San Francisco, CA 94103",
+      "tags": "music,acoustic,live,entertainment"
+    },
+    {
+      "id": "11",
+      "title": "Game Night: Board Games & Chill",
+      "photo": "dummy_event_10",
+      "description": "Bring your friends for board games and card games. We provide the games, you bring the fun!",
+      "start_time": "2026-01-10T18:00:00",
+      "end_time": "2026-01-10T22:00:00",
+      "location": "952 Mission St, San Francisco, CA 94103",
+      "tags": "games,social,board-games,entertainment"
+    },
+    {
+      "id": "12",
+      "title": "Cannabis & Cuisine Pairing",
+      "photo": "dummy_event_12",
+      "description": "Explore flavor profiles with our sommelier. Learn how to pair cannabis strains with gourmet dishes. Limited seats.",
+      "start_time": "2026-01-17T18:30:00",
+      "end_time": "2026-01-17T21:00:00",
+      "location": "952 Mission St, San Francisco, CA 94103",
+      "tags": "food,cannabis,education,gourmet,pairing"
+    }
+  ]
+}

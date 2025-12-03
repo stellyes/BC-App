@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useLocalSearchParams } from 'expo-router';
 import ProductCard from '../../components/ProductCard';
 import FilterMenu, { FilterOptions } from '../../components/FilterMenu';
 import { useCart } from '../../contexts/CartContext';
@@ -33,6 +34,9 @@ const VALID_PRODUCT_TYPES = [
 ];
 
 export default function ShopScreen() {
+  const params = useLocalSearchParams();
+  const categoryParam = params.category as string | undefined;
+
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [menuVisible, setMenuVisible] = useState(false);
   const [filters, setFilters] = useState<FilterOptions>({
@@ -51,6 +55,16 @@ export default function ShopScreen() {
     );
     setAllProducts(filteredProducts);
   }, []);
+
+  // Apply category filter from navigation params
+  useEffect(() => {
+    if (categoryParam) {
+      setFilters((prev) => ({
+        ...prev,
+        categories: [categoryParam],
+      }));
+    }
+  }, [categoryParam]);
 
   // Apply filters to products
   const filteredProducts = useMemo(() => {
@@ -123,7 +137,7 @@ export default function ShopScreen() {
           style={styles.menuButton}
           onPress={() => setMenuVisible(true)}
         >
-          <Ionicons name="menu" size={28} color="#333" />
+          <Ionicons name="menu" size={28} color="#FCBF27" />
         </TouchableOpacity>
       </View>
       <FlatList
@@ -150,22 +164,23 @@ export default function ShopScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#121212',
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#121212',
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomColor: '#FCBF27',
   },
   title: {
     fontSize: 28,
+    fontFamily: 'Poppins-BoldItalic',
     fontWeight: '700',
-    color: '#333',
+    color: '#FCBF27',
   },
   menuButton: {
     padding: 8,

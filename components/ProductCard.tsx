@@ -37,12 +37,12 @@ export default function ProductCard({ product }: ProductCardProps) {
         <Text style={styles.name} numberOfLines={2}>
           {product.product_name}
         </Text>
-        {product.classification && (
-          <Text style={styles.classification}>{product.classification}</Text>
-        )}
-        {product.potency && (
-          <Text style={styles.potency}>{product.potency}</Text>
-        )}
+        <Text style={styles.classification}>
+          {product.classification || ' '}
+        </Text>
+        <Text style={styles.potency}>
+          {product.potency || ' '}
+        </Text>
         <Text style={styles.price}>
           {formatPrice(product.price, product.weight)}
         </Text>
@@ -53,52 +53,59 @@ export default function ProductCard({ product }: ProductCardProps) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: '#1a1a1a',
     borderRadius: 12,
     overflow: 'hidden',
     marginBottom: 16,
+    borderWidth: 1,
+    borderColor: '#FCBF27',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 3,
   },
   image: {
     width: '100%',
     height: 150,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#121212',
   },
   info: {
     padding: 12,
   },
   brand: {
     fontSize: 12,
+    fontFamily: 'Poppins-Regular',
     fontWeight: '600',
-    color: '#666',
+    color: '#FCBF27',
     textTransform: 'uppercase',
     marginBottom: 4,
   },
   name: {
     fontSize: 16,
+    fontFamily: 'Poppins-BoldItalic',
     fontWeight: '700',
-    color: '#333',
+    color: '#FCBF27',
     marginBottom: 8,
     lineHeight: 20,
   },
   classification: {
     fontSize: 13,
-    color: '#4a90e2',
+    fontFamily: 'Poppins-Regular',
+    color: '#FCBF27',
     fontWeight: '600',
     marginBottom: 4,
   },
   potency: {
     fontSize: 13,
-    color: '#666',
+    fontFamily: 'Poppins-Regular',
+    color: '#FCBF27',
     marginBottom: 8,
   },
   price: {
     fontSize: 16,
+    fontFamily: 'Poppins-BoldItalic',
     fontWeight: '700',
-    color: '#2ecc71',
+    color: '#FCBF27',
   },
 });
