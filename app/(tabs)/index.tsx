@@ -13,6 +13,8 @@ import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import eventsData from '../../data/dummy-events.json';
 import { useUser } from '../../contexts/UserContext';
+import { useCart } from '../../contexts/CartContext';
+import dummyProductsData from '../../data/dummy-products.json';
 
 /**
  * WELCOME TO YOUR FIRST APP!
@@ -304,6 +306,47 @@ function MenuIconsScroll() {
   );
 }
 
+function RememberMeCart() {
+  const router = useRouter();
+  const { items } = useCart();
+
+  if (items.length === 0) {
+    return null;
+  }
+
+  // Get a random cart item
+  const randomItem = items[Math.floor(Math.random() * items.length)];
+  const product = dummyProductsData.data.stock.find(
+    (p) => p.product_id === randomItem.product_id
+  );
+
+  if (!product) {
+    return null;
+  }
+
+  return (
+    <View style={styles.rememberMeContainer}>
+      <Text style={styles.rememberMeTitle}>Remember me?</Text>
+      <Image
+        source={{ uri: product.image_url || 'https://via.placeholder.com/200' }}
+        style={styles.rememberMeImage}
+        resizeMode="cover"
+      />
+      <Text style={styles.rememberMeProductName} numberOfLines={2}>
+        {product.product_name}
+      </Text>
+      <Text style={styles.rememberMeProductBrand}>{product.product_brand}</Text>
+      <TouchableOpacity
+        style={styles.continueShoppingButton}
+        onPress={() => router.push('/(tabs)/shop')}
+        activeOpacity={0.8}
+      >
+        <Text style={styles.continueShoppingButtonText}>Continue Shopping</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
 function UpcomingEvent() {
   const router = useRouter();
   const events: Event[] = eventsData.data;
@@ -414,6 +457,9 @@ export default function App() {
       {/* Upcoming Event */}
       <Text style={styles.label}>Next Event</Text>
       <UpcomingEvent />
+
+      {/* Remember Me Cart Section */}
+      <RememberMeCart />
 
     </ScrollView>
   );
@@ -637,5 +683,59 @@ const styles = StyleSheet.create({
     color: '#FCBF27',
     opacity: 0.9,
     lineHeight: 20,
+  },
+  rememberMeContainer: {
+    width: '100%',
+    backgroundColor: '#1a1a1a',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#FCBF27',
+    padding: 20,
+    alignItems: 'center',
+    marginTop: 24,
+    marginBottom: 24,
+  },
+  rememberMeTitle: {
+    fontSize: 28,
+    fontFamily: 'Poppins-BoldItalic',
+    fontWeight: '700',
+    color: '#FCBF27',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  rememberMeImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 12,
+    backgroundColor: '#121212',
+    marginBottom: 16,
+  },
+  rememberMeProductName: {
+    fontSize: 18,
+    fontFamily: 'Poppins-BoldItalic',
+    fontWeight: '700',
+    color: '#FCBF27',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  rememberMeProductBrand: {
+    fontSize: 14,
+    fontFamily: 'Poppins-Regular',
+    color: '#FCBF27',
+    textAlign: 'center',
+    marginBottom: 20,
+    opacity: 0.8,
+  },
+  continueShoppingButton: {
+    backgroundColor: '#FCBF27',
+    paddingVertical: 14,
+    paddingHorizontal: 32,
+    borderRadius: 12,
+  },
+  continueShoppingButtonText: {
+    fontSize: 16,
+    fontFamily: 'Poppins-BoldItalic',
+    fontWeight: '700',
+    color: '#121212',
   },
 });
