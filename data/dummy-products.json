@@ -18,6 +18,7 @@
         "price": 8.99,
         "weight": "355ml",
         "image_url": "https://via.placeholder.com/150/FF6B35/ffffff?text=Beverage",
+        "description": "A refreshing sparkling water infused with natural orange creamsicle flavor and 5mg of fast-acting THC. Perfect for a light, uplifting experience.",
         "inventory_details": [
           {
             "location_name": "RETAIL",
@@ -39,6 +40,7 @@
         "price": 12.99,
         "weight": "355ml",
         "image_url": "https://via.placeholder.com/150/F7B801/ffffff?text=Beverage",
+        "description": "Crisp lemon ginger soda infused with 10mg of CBD for relaxation and wellness benefits without the high.",
         "inventory_details": [
           {
             "location_name": "RETAIL",
@@ -57,9 +59,10 @@
         "product_uom": "GRAMS",
         "classification": "Sativa",
         "potency": "89%",
-        "price": 45.00,
+        "price": 45.0,
         "weight": "1g",
         "image_url": "https://via.placeholder.com/150/4ECDC4/ffffff?text=Cartridge",
+        "description": "Premium sativa-dominant vape cartridge with 89% THC. Blue Dream delivers balanced cerebral and full-body effects for daytime use.",
         "inventory_details": [
           {
             "location_name": "RETAIL",
@@ -78,9 +81,10 @@
         "product_uom": "GRAMS",
         "classification": "Indica",
         "potency": "92%",
-        "price": 45.00,
+        "price": 45.0,
         "weight": "1g",
         "image_url": "https://via.placeholder.com/150/1A535C/ffffff?text=Cartridge",
+        "description": "High-potency indica cartridge with 92% THC. Lava Cake provides deep relaxation and stress relief, perfect for evening use.",
         "inventory_details": [
           {
             "location_name": "RETAIL",
@@ -102,6 +106,7 @@
         "price": 24.99,
         "weight": "10pk",
         "image_url": "https://via.placeholder.com/150/E74C3C/ffffff?text=Edible",
+        "description": "Delicious strawberry-flavored gummies with 10mg THC per piece. 10-pack provides consistent, long-lasting effects.",
         "inventory_details": [
           {
             "location_name": "RETAIL",
@@ -120,9 +125,10 @@
         "product_uom": "MG",
         "classification": "I/S",
         "potency": "100mg",
-        "price": 22.00,
+        "price": 22.0,
         "weight": "100g",
         "image_url": "https://via.placeholder.com/150/8B4513/ffffff?text=Edible",
+        "description": "Rich dark chocolate bar infused with 100mg THC. Perfect for microdosing or sharing.",
         "inventory_details": [
           {
             "location_name": "RETAIL",
@@ -141,9 +147,10 @@
         "product_uom": "GRAMS",
         "classification": "Hybrid",
         "potency": "78%",
-        "price": 55.00,
+        "price": 55.0,
         "weight": "1g",
         "image_url": "https://via.placeholder.com/150/FFD700/ffffff?text=Extract",
+        "description": "Premium live resin sauce with intense flavor and 78% THC. Ideal for dabbing enthusiasts.",
         "inventory_details": [
           {
             "location_name": "RETAIL",
@@ -162,7 +169,7 @@
         "product_uom": "GRAMS",
         "classification": "Sativa",
         "potency": "82%",
-        "price": 50.00,
+        "price": 50.0,
         "weight": "1g",
         "image_url": "https://via.placeholder.com/150/DAA520/ffffff?text=Extract",
         "inventory_details": [
@@ -172,7 +179,8 @@
             "sellable_quantity": 10.0,
             "last_updated_at": "2023-02-16T20:41:21.000-08:00"
           }
-        ]
+        ],
+        "description": "Quality extract from Raw Garden. Sativa with 82% potency."
       },
       {
         "product_id": "9",
@@ -183,9 +191,10 @@
         "product_uom": "GRAMS",
         "classification": "Indica",
         "potency": "28%",
-        "price": 60.00,
+        "price": 60.0,
         "weight": "3.5g",
         "image_url": "https://via.placeholder.com/150/228B22/ffffff?text=Flower",
+        "description": "Premium indica flower with 28% THC. Wedding Cake offers sweet, earthy flavors with relaxing, euphoric effects.",
         "inventory_details": [
           {
             "location_name": "RETAIL",
@@ -204,9 +213,10 @@
         "product_uom": "GRAMS",
         "classification": "Sativa",
         "potency": "24%",
-        "price": 50.00,
+        "price": 50.0,
         "weight": "3.5g",
         "image_url": "https://via.placeholder.com/150/32CD32/ffffff?text=Flower",
+        "description": "Classic sativa strain with 24% THC. Jack Herer delivers clear-headed, creative, and energizing effects.",
         "inventory_details": [
           {
             "location_name": "RETAIL",
@@ -225,7 +235,7 @@
         "product_uom": "GRAMS",
         "classification": "S/I",
         "potency": "26%",
-        "price": 55.00,
+        "price": 55.0,
         "weight": "3.5g",
         "image_url": "https://via.placeholder.com/150/2E8B57/ffffff?text=Flower",
         "inventory_details": [
@@ -235,7 +245,8 @@
             "sellable_quantity": 18.0,
             "last_updated_at": "2023-02-16T20:41:21.000-08:00"
           }
-        ]
+        ],
+        "description": "Quality flower from Cookies. S/I with 26% potency."
       },
       {
         "product_id": "12",
@@ -256,7 +267,8 @@
             "sellable_quantity": 12.0,
             "last_updated_at": "2023-02-16T20:41:21.000-08:00"
           }
-        ]
+        ],
+        "description": "Quality merch from Raw."
       },
       {
         "product_id": "13",
@@ -277,7 +289,8 @@
             "sellable_quantity": 8.0,
             "last_updated_at": "2023-02-16T20:41:21.000-08:00"
           }
-        ]
+        ],
+        "description": "Quality merch from Grav Labs."
       },
       {
         "product_id": "14",
@@ -288,7 +301,7 @@
         "product_uom": "MG",
         "classification": "CBD",
         "potency": "500mg",
-        "price": 35.00,
+        "price": 35.0,
         "weight": "30ct",
         "image_url": "https://via.placeholder.com/150/4169E1/ffffff?text=Pill",
         "inventory_details": [
@@ -298,7 +311,8 @@
             "sellable_quantity": 15.0,
             "last_updated_at": "2023-02-16T20:41:21.000-08:00"
           }
-        ]
+        ],
+        "description": "Quality pill from Care By Design. CBD with 500mg potency."
       },
       {
         "product_id": "15",
@@ -309,7 +323,7 @@
         "product_uom": "MG",
         "classification": "Hybrid",
         "potency": "250mg",
-        "price": 30.00,
+        "price": 30.0,
         "weight": "10ct",
         "image_url": "https://via.placeholder.com/150/6495ED/ffffff?text=Pill",
         "inventory_details": [
@@ -319,7 +333,8 @@
             "sellable_quantity": 20.0,
             "last_updated_at": "2023-02-16T20:41:21.000-08:00"
           }
-        ]
+        ],
+        "description": "Quality pill from Care By Design. Hybrid with 250mg potency."
       },
       {
         "product_id": "16",
@@ -330,7 +345,7 @@
         "product_uom": "GRAMS",
         "classification": "Indica",
         "potency": "35%",
-        "price": 18.00,
+        "price": 18.0,
         "weight": "1g",
         "image_url": "https://via.placeholder.com/150/CD5C5C/ffffff?text=Preroll",
         "inventory_details": [
@@ -340,7 +355,8 @@
             "sellable_quantity": 40.0,
             "last_updated_at": "2023-02-16T20:41:21.000-08:00"
           }
-        ]
+        ],
+        "description": "Quality preroll from Stiiizy. Indica with 35% potency."
       },
       {
         "product_id": "17",
@@ -351,7 +367,7 @@
         "product_uom": "GRAMS",
         "classification": "Sativa",
         "potency": "22%",
-        "price": 12.00,
+        "price": 12.0,
         "weight": "1g",
         "image_url": "https://via.placeholder.com/150/FA8072/ffffff?text=Preroll",
         "inventory_details": [
@@ -361,7 +377,8 @@
             "sellable_quantity": 35.0,
             "last_updated_at": "2023-02-16T20:41:21.000-08:00"
           }
-        ]
+        ],
+        "description": "Quality preroll from Stiiizy. Sativa with 22% potency."
       },
       {
         "product_id": "18",
@@ -372,7 +389,7 @@
         "product_uom": "GRAMS",
         "classification": "Hybrid",
         "potency": "24%",
-        "price": 35.00,
+        "price": 35.0,
         "weight": "5pk",
         "image_url": "https://via.placeholder.com/150/E9967A/ffffff?text=Preroll",
         "inventory_details": [
@@ -382,7 +399,8 @@
             "sellable_quantity": 22.0,
             "last_updated_at": "2023-02-16T20:41:21.000-08:00"
           }
-        ]
+        ],
+        "description": "Quality preroll from Stiiizy. Hybrid with 24% potency."
       },
       {
         "product_id": "19",
@@ -393,7 +411,7 @@
         "product_uom": "ML",
         "classification": "CBD",
         "potency": "500mg",
-        "price": 45.00,
+        "price": 45.0,
         "weight": "30ml",
         "image_url": "https://via.placeholder.com/150/9370DB/ffffff?text=Tincture",
         "inventory_details": [
@@ -403,7 +421,8 @@
             "sellable_quantity": 14.0,
             "last_updated_at": "2023-02-16T20:41:21.000-08:00"
           }
-        ]
+        ],
+        "description": "Quality tincture from Charlotte's Web. CBD with 500mg potency."
       },
       {
         "product_id": "20",
@@ -414,7 +433,7 @@
         "product_uom": "ML",
         "classification": "Hybrid",
         "potency": "1000mg",
-        "price": 60.00,
+        "price": 60.0,
         "weight": "30ml",
         "image_url": "https://via.placeholder.com/150/BA55D3/ffffff?text=Tincture",
         "inventory_details": [
@@ -424,7 +443,8 @@
             "sellable_quantity": 10.0,
             "last_updated_at": "2023-02-16T20:41:21.000-08:00"
           }
-        ]
+        ],
+        "description": "Quality tincture from Care By Design. Hybrid with 1000mg potency."
       },
       {
         "product_id": "21",
@@ -435,7 +455,7 @@
         "product_uom": "MG",
         "classification": "CBD",
         "potency": "300mg",
-        "price": 40.00,
+        "price": 40.0,
         "weight": "50ml",
         "image_url": "https://via.placeholder.com/150/20B2AA/ffffff?text=Topical",
         "inventory_details": [
@@ -445,7 +465,8 @@
             "sellable_quantity": 16.0,
             "last_updated_at": "2023-02-16T20:41:21.000-08:00"
           }
-        ]
+        ],
+        "description": "Quality topical from Papa & Barkley. CBD with 300mg potency."
       },
       {
         "product_id": "22",
@@ -456,7 +477,7 @@
         "product_uom": "MG",
         "classification": "Hybrid",
         "potency": "200mg",
-        "price": 35.00,
+        "price": 35.0,
         "weight": "100ml",
         "image_url": "https://via.placeholder.com/150/48D1CC/ffffff?text=Topical",
         "inventory_details": [
@@ -466,7 +487,8 @@
             "sellable_quantity": 12.0,
             "last_updated_at": "2023-02-16T20:41:21.000-08:00"
           }
-        ]
+        ],
+        "description": "Quality topical from Papa & Barkley. Hybrid with 200mg potency."
       }
     ]
   }

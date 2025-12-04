@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
 
 interface ProductCardProps {
   product: {
@@ -12,10 +13,12 @@ interface ProductCardProps {
     price: number;
     weight?: string | null;
     image_url?: string;
+    description?: string;
   };
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const router = useRouter();
   const formatPrice = (price: number, weight?: string | null) => {
     if (weight) {
       return `$${price.toFixed(2)} / ${weight}`;
@@ -23,8 +26,15 @@ export default function ProductCard({ product }: ProductCardProps) {
     return `$${price.toFixed(2)}`;
   };
 
+  const handlePress = () => {
+    router.push({
+      pathname: '/product-detail',
+      params: { productId: product.product_id },
+    });
+  };
+
   return (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={handlePress} activeOpacity={0.8}>
       <Image
         source={{ uri: product.image_url || 'https://via.placeholder.com/150' }}
         style={styles.image}
@@ -47,7 +57,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           {formatPrice(product.price, product.weight)}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

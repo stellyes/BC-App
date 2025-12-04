@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import ProductCard from '../../components/ProductCard';
 import FilterMenu, { FilterOptions } from '../../components/FilterMenu';
 import { useCart } from '../../contexts/CartContext';
@@ -18,6 +18,7 @@ interface Product {
   price: number;
   weight?: string | null;
   image_url?: string;
+  description?: string;
 }
 
 const VALID_PRODUCT_TYPES = [
@@ -35,6 +36,7 @@ const VALID_PRODUCT_TYPES = [
 
 export default function ShopScreen() {
   const params = useLocalSearchParams();
+  const router = useRouter();
   const categoryParam = params.category as string | undefined;
 
   const [allProducts, setAllProducts] = useState<Product[]>([]);
@@ -125,8 +127,7 @@ export default function ShopScreen() {
 
   const handleCartPress = () => {
     setMenuVisible(false);
-    // TODO: Navigate to cart screen
-    console.log('Navigate to cart');
+    router.push('/cart');
   };
 
   return (

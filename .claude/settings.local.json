@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python add_descriptions.py:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
