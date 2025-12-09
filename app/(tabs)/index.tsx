@@ -15,6 +15,7 @@ import eventsData from '../../data/dummy-events.json';
 import { useUser } from '../../contexts/UserContext';
 import { useCart } from '../../contexts/CartContext';
 import dummyProductsData from '../../data/dummy-products.json';
+import AuthModal from '../../components/AuthModal';
 
 /**
  * WELCOME TO YOUR FIRST APP!
@@ -55,12 +56,14 @@ interface Event {
 }
 
 function BannerCarousel() {
+  const router = useRouter();
+
   const banners = [
-    require('../../assets/mobilebanners/jettymobilebanner.png'),
-    require('../../assets/mobilebanners/britemobilebanner.png'),
-    require('../../assets/mobilebanners/KINDmobilebanner.png'),
-    require('../../assets/mobilebanners/FFFmobilebanner.png'),
-    require('../../assets/mobilebanners/ICEDmobilebanner.png'),
+    { id: '1', source: require('../../assets/mobilebanners/jettymobilebanner.png') },
+    { id: '2', source: require('../../assets/mobilebanners/britemobilebanner.png') },
+    { id: '3', source: require('../../assets/mobilebanners/KINDmobilebanner.png') },
+    { id: '4', source: require('../../assets/mobilebanners/FFFmobilebanner.png') },
+    { id: '5', source: require('../../assets/mobilebanners/ICEDmobilebanner.png') },
   ];
 
   // For infinite scroll, duplicate first and last
@@ -228,9 +231,23 @@ function BannerCarousel() {
         scrollEventThrottle={16}
         contentContainerStyle={{ alignItems: 'center' }}
       >
-        {items.map((src, i) => (
+        {items.map((banner, i) => (
           <View key={i} style={{ width: bannerWidth, alignItems: 'center' }}>
-            <Image source={src} style={styles.bannerImage} />
+            <TouchableOpacity
+              onPress={() => {
+                console.log('Banner pressed:', banner.id);
+                if (banner.id) {
+                  console.log('Navigating to deal:', banner.id);
+                  router.push(`/deal-detail?dealId=${banner.id}`);
+                } else {
+                  console.log('No banner.id found');
+                }
+              }}
+              activeOpacity={0.9}
+              style={{ width: '100%' }}
+            >
+              <Image source={banner.source} style={styles.bannerImage} />
+            </TouchableOpacity>
           </View>
         ))}
       </ScrollView>
@@ -422,6 +439,7 @@ function UpcomingEvent() {
 
 export default function App() {
   const { isLoggedIn, userData } = useUser();
+  const [authModalVisible, setAuthModalVisible] = useState(false);
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -436,31 +454,59 @@ export default function App() {
       {isLoggedIn && userData && (
         <>
           <Text style={styles.welcomeMessage}>Welcome back, {userData.firstName}!</Text>
+          <Text style={styles.rewardsBalance}>Rewards: ${userData.rewardsBalance.toFixed(2)}</Text>
           <Image source={require('../../assets/images/divider.png')} style={styles.divider} />
         </>
       )}
 
-      {/* Deals Carousel */}
-      <Text style={styles.label}>Daily Deals!</Text>
-      <BannerCarousel />
+      {/* Sign In Prompt for Non-Logged In Users */}
+      {!isLoggedIn && (
+        <>
+          <View style={styles.authPromptContainer}>
+            <Text style={styles.authPromptTitle}>Sign In to View Our Menu & Deals</Text>
+            <Text style={styles.authPromptText}>
+              Create an account or sign in to access our full menu, exclusive deals, and more.
+            </Text>
+            <TouchableOpacity
+              style={styles.signInButton}
+              onPress={() => setAuthModalVisible(true)}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.signInButtonText}>Sign In / Sign Up</Text>
+            </TouchableOpacity>
+          </View>
+          <Image source={require('../../assets/images/divider.png')} style={styles.divider} />
+        </>
+      )}
 
-      {/* Divider */}
-      <Image source={require('../../assets/images/divider.png')} style={styles.divider} />
+      {/* Only show content if logged in */}
+      {isLoggedIn && (
+        <>
+          {/* Deals Carousel */}
+          <Text style={styles.label}>Daily Deals!</Text>
+          <BannerCarousel />
 
-      {/* Menu Icons Scroll */}
-      <Text style={styles.label}>Shop By Category</Text>
-      <MenuIconsScroll />
+          {/* Divider */}
+          <Image source={require('../../assets/images/divider.png')} style={styles.divider} />
 
-      {/* Divider */}
-      <Image source={require('../../assets/images/divider.png')} style={styles.divider} />
+          {/* Menu Icons Scroll */}
+          <Text style={styles.label}>Shop By Category</Text>
+          <MenuIconsScroll />
 
-      {/* Upcoming Event */}
-      <Text style={styles.label}>Next Event</Text>
-      <UpcomingEvent />
+          {/* Divider */}
+          <Image source={require('../../assets/images/divider.png')} style={styles.divider} />
 
-      {/* Remember Me Cart Section */}
-      <RememberMeCart />
+          {/* Upcoming Event */}
+          <Text style={styles.label}>Next Event</Text>
+          <UpcomingEvent />
 
+          {/* Remember Me Cart Section */}
+          <RememberMeCart />
+        </>
+      )}
+
+      {/* Auth Modal */}
+      <AuthModal visible={authModalVisible} onClose={() => setAuthModalVisible(false)} />
     </ScrollView>
   );
 }
@@ -489,7 +535,15 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#FCBF27',
     textAlign: 'center',
+    marginBottom: 8,
+  },
+  rewardsBalance: {
+    fontSize: 16,
+    fontFamily: 'Poppins-Regular',
+    color: '#FCBF27',
+    textAlign: 'center',
     marginBottom: 24,
+    opacity: 0.9,
   },
   headerImage: {
     width: 280,
@@ -733,6 +787,47 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   continueShoppingButtonText: {
+    fontSize: 16,
+    fontFamily: 'Poppins-BoldItalic',
+    fontWeight: '700',
+    color: '#121212',
+  },
+  authPromptContainer: {
+    width: '100%',
+    backgroundColor: '#1a1a1a',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#FCBF27',
+    padding: 24,
+    alignItems: 'center',
+    marginBottom: 24,
+  },
+  authPromptTitle: {
+    fontSize: 24,
+    fontFamily: 'Poppins-BoldItalic',
+    fontWeight: '700',
+    color: '#FCBF27',
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  authPromptText: {
+    fontSize: 14,
+    fontFamily: 'Poppins-Regular',
+    color: '#FCBF27',
+    textAlign: 'center',
+    marginBottom: 24,
+    opacity: 0.9,
+    lineHeight: 20,
+  },
+  signInButton: {
+    backgroundColor: '#FCBF27',
+    paddingVertical: 14,
+    paddingHorizontal: 32,
+    borderRadius: 12,
+    width: '100%',
+    alignItems: 'center',
+  },
+  signInButtonText: {
     fontSize: 16,
     fontFamily: 'Poppins-BoldItalic',
     fontWeight: '700',

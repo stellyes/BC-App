@@ -6,7 +6,9 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import ProductCard from '../../components/ProductCard';
 import FilterMenu, { FilterOptions } from '../../components/FilterMenu';
 import { useCart } from '../../contexts/CartContext';
+import { useUser } from '../../contexts/UserContext';
 import dummyProductsData from '../../data/dummy-products.json';
+import AuthModal from '../../components/AuthModal';
 
 interface Product {
   product_id: string;
@@ -41,6 +43,7 @@ export default function ShopScreen() {
 
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [menuVisible, setMenuVisible] = useState(false);
+  const [authModalVisible, setAuthModalVisible] = useState(false);
   const [filters, setFilters] = useState<FilterOptions>({
     categories: [],
     maxPrice: '',
@@ -49,6 +52,7 @@ export default function ShopScreen() {
     potencyUnit: 'mg',
   });
   const { itemCount } = useCart();
+  const { isLoggedIn } = useUser();
 
   useEffect(() => {
     // Load all valid products
@@ -141,15 +145,35 @@ export default function ShopScreen() {
           <Ionicons name="menu" size={28} color="#FCBF27" />
         </TouchableOpacity>
       </View>
-      <FlatList
-        data={filteredProducts}
-        renderItem={renderProduct}
-        keyExtractor={(item) => item.product_id}
-        numColumns={2}
-        columnWrapperStyle={styles.row}
-        contentContainerStyle={styles.listContent}
-        showsVerticalScrollIndicator={false}
-      />
+
+      {!isLoggedIn ? (
+        <View style={styles.authPromptWrapper}>
+          <View style={styles.authPromptContainer}>
+            <Text style={styles.authPromptTitle}>Sign In to View Our Menu</Text>
+            <Text style={styles.authPromptText}>
+              Create an account or sign in to access our full menu and exclusive deals.
+            </Text>
+            <TouchableOpacity
+              style={styles.signInButton}
+              onPress={() => setAuthModalVisible(true)}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.signInButtonText}>Sign In / Sign Up</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      ) : (
+        <FlatList
+          data={filteredProducts}
+          renderItem={renderProduct}
+          keyExtractor={(item) => item.product_id}
+          numColumns={2}
+          columnWrapperStyle={styles.row}
+          contentContainerStyle={styles.listContent}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
+
       <FilterMenu
         visible={menuVisible}
         onClose={() => setMenuVisible(false)}
@@ -158,6 +182,8 @@ export default function ShopScreen() {
         filters={filters}
         onFiltersChange={setFilters}
       />
+
+      <AuthModal visible={authModalVisible} onClose={() => setAuthModalVisible(false)} />
     </SafeAreaView>
   );
 }
@@ -195,5 +221,51 @@ const styles = StyleSheet.create({
   productContainer: {
     flex: 1,
     maxWidth: '48%',
+  },
+  authPromptWrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
+  },
+  authPromptContainer: {
+    width: '100%',
+    backgroundColor: '#1a1a1a',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#FCBF27',
+    padding: 24,
+    alignItems: 'center',
+  },
+  authPromptTitle: {
+    fontSize: 24,
+    fontFamily: 'Poppins-BoldItalic',
+    fontWeight: '700',
+    color: '#FCBF27',
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  authPromptText: {
+    fontSize: 14,
+    fontFamily: 'Poppins-Regular',
+    color: '#FCBF27',
+    textAlign: 'center',
+    marginBottom: 24,
+    opacity: 0.9,
+    lineHeight: 20,
+  },
+  signInButton: {
+    backgroundColor: '#FCBF27',
+    paddingVertical: 14,
+    paddingHorizontal: 32,
+    borderRadius: 12,
+    width: '100%',
+    alignItems: 'center',
+  },
+  signInButtonText: {
+    fontSize: 16,
+    fontFamily: 'Poppins-BoldItalic',
+    fontWeight: '700',
+    color: '#121212',
   },
 });

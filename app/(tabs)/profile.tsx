@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useUser } from '../../contexts/UserContext';
+import AuthModal from '../../components/AuthModal';
 
 export default function ProfileScreen() {
-  const { isLoggedIn, userData, login, logout } = useUser();
+  const { isLoggedIn, userData, logout } = useUser();
   const router = useRouter();
+  const [authModalVisible, setAuthModalVisible] = useState(false);
 
   if (!isLoggedIn) {
     return (
@@ -16,10 +18,14 @@ export default function ProfileScreen() {
           <Ionicons name="person-circle-outline" size={120} color="#FCBF27" />
           <Text style={styles.loginTitle}>Welcome to The Barbary Coast</Text>
           <Text style={styles.loginSubtitle}>Sign in to access your profile and rewards</Text>
-          <TouchableOpacity style={styles.loginButton} onPress={login}>
-            <Text style={styles.loginButtonText}>Sign Up / Log In</Text>
+          <TouchableOpacity
+            style={styles.loginButton}
+            onPress={() => setAuthModalVisible(true)}
+          >
+            <Text style={styles.loginButtonText}>Get Started</Text>
           </TouchableOpacity>
         </View>
+        <AuthModal visible={authModalVisible} onClose={() => setAuthModalVisible(false)} />
       </SafeAreaView>
     );
   }

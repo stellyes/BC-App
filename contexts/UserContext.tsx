@@ -14,6 +14,7 @@ interface UserData {
   profilePicture?: string;
   rewardsBalance: number;
   pastPurchasesCount: number;
+  hasMMID?: boolean;
 }
 
 interface UserContextType {

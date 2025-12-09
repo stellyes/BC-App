@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python add_descriptions.py:*)"
+      "Bash(python add_descriptions.py:*)",
+      "Bash(cd:*)",
+      "Bash(npx expo start)"
     ],
     "deny": [],
     "ask": []
