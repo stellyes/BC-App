@@ -11,6 +11,8 @@ import { CartProvider } from '@/contexts/CartContext';
 import { UserProvider } from '@/contexts/UserContext';
 import { AgeVerificationProvider, useAgeVerification } from '@/contexts/AgeVerificationContext';
 import { LocationProvider, useLocation } from '@/contexts/LocationContext';
+import { NotificationProvider } from '@/contexts/NotificationContext';
+import { OrderProvider } from '@/contexts/OrderContext';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete
 SplashScreen.preventAutoHideAsync();
@@ -33,6 +35,10 @@ function RootLayoutNav() {
     const inDealDetail = segments[0] === 'deal-detail';
     const inProductDetail = segments[0] === 'product-detail';
     const inCart = segments[0] === 'cart';
+    const inAbout = segments[0] === 'about';
+    const inMyInfo = segments[0] === 'my-info';
+    const inSettings = segments[0] === 'settings';
+    const inPastPurchases = segments[0] === 'past-purchases';
 
     // Step 1: Check location verification
     if (!isLocationVerified && !inLocationVerification) {
@@ -53,7 +59,7 @@ function RootLayoutNav() {
     }
 
     // Step 4: If all verifications passed, redirect to tabs (unless on deal detail or other allowed pages)
-    if (isLocationVerified && isInCalifornia === true && isAgeVerified && !inTabs && !inDealDetail && !inProductDetail && !inCart) {
+    if (isLocationVerified && isInCalifornia === true && isAgeVerified && !inTabs && !inDealDetail && !inProductDetail && !inCart && !inAbout && !inMyInfo && !inSettings && !inPastPurchases) {
       router.replace('/(tabs)');
       return;
     }
@@ -68,6 +74,10 @@ function RootLayoutNav() {
       <Stack.Screen name="deal-detail" options={{ headerShown: false }} />
       <Stack.Screen name="product-detail" options={{ headerShown: false }} />
       <Stack.Screen name="cart" options={{ headerShown: false }} />
+      <Stack.Screen name="about" options={{ headerShown: false }} />
+      <Stack.Screen name="my-info" options={{ headerShown: false }} />
+      <Stack.Screen name="settings" options={{ headerShown: false }} />
+      <Stack.Screen name="past-purchases" options={{ headerShown: false }} />
       <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
     </Stack>
   );
@@ -101,12 +111,16 @@ export default function RootLayout() {
     <LocationProvider>
       <AgeVerificationProvider>
         <UserProvider>
-          <CartProvider>
-            <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-              <RootLayoutNav />
-              <StatusBar style="auto" />
-            </ThemeProvider>
-          </CartProvider>
+          <NotificationProvider>
+            <OrderProvider>
+              <CartProvider>
+                <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+                  <RootLayoutNav />
+                  <StatusBar style="auto" />
+                </ThemeProvider>
+              </CartProvider>
+            </OrderProvider>
+          </NotificationProvider>
         </UserProvider>
       </AgeVerificationProvider>
     </LocationProvider>

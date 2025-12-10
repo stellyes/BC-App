@@ -2,14 +2,39 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Alert, BackHandler } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAgeVerification } from '../contexts/AgeVerificationContext';
+import { useNotifications } from '../contexts/NotificationContext';
 
 export default function AgeVerificationScreen() {
   const router = useRouter();
   const { verifyAge } = useAgeVerification();
+  const { requestPermissions, permissionStatus } = useNotifications();
 
-  const handleAgeConfirm = () => {
+  const handleAgeConfirm = async () => {
     verifyAge();
-    router.replace('/(tabs)');
+
+    // Prompt for notifications if not already granted
+    if (permissionStatus !== 'granted') {
+      Alert.alert(
+        'Stay Updated',
+        'Would you like to receive notifications about new deals, products, and events?',
+        [
+          {
+            text: 'Not Now',
+            style: 'cancel',
+            onPress: () => router.replace('/(tabs)'),
+          },
+          {
+            text: 'Enable Notifications',
+            onPress: async () => {
+              await requestPermissions();
+              router.replace('/(tabs)');
+            },
+          },
+        ]
+      );
+    } else {
+      router.replace('/(tabs)');
+    }
   };
 
   const handleAgeDeny = () => {

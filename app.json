@@ -8,11 +8,13 @@
     "scheme": "bcapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "owner": "stellyes",
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "We need your location to verify you are in California to access our services."
-      }
+      },
+      "bundleIdentifier": "com.barbaarycoast.BCapp"
     },
     "android": {
       "adaptiveIcon": {
@@ -26,7 +28,8 @@
       "permissions": [
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION"
-      ]
+      ],
+      "package": "com.barbaarycoast.BCapp"
     },
     "web": {
       "output": "static",
@@ -45,11 +48,24 @@
             "backgroundColor": "#000000"
           }
         }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/icon.png",
+          "color": "#FCBF27",
+          "sounds": []
+        }
       ]
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d0f831cc-1a3c-435e-954d-188b24e0d015"
+      }
     }
   }
 }

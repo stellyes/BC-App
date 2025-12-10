@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useCart } from '../contexts/CartContext';
+import { useOrders } from '../contexts/OrderContext';
 import dummyProductsData from '../data/dummy-products.json';
 
 interface Product {
@@ -27,6 +28,7 @@ interface CartItemWithProduct {
 export default function CartScreen() {
   const router = useRouter();
   const { items, updateQuantity, clearCart } = useCart();
+  const { createOrder } = useOrders();
 
   const cartItemsWithProducts: CartItemWithProduct[] = useMemo(() => {
     return items
@@ -79,12 +81,44 @@ export default function CartScreen() {
     );
   };
 
-  const handlePlaceOrder = () => {
-    Alert.alert(
-      'Place Pickup Order',
-      `Total: $${totalPrice.toFixed(2)}\n\nThis feature is coming soon!`,
-      [{ text: 'OK' }]
-    );
+  const handlePlaceOrder = async () => {
+    try {
+      // Convert cart items to order format
+      const orderItems = cartItemsWithProducts.map(item => ({
+        id: item.product.product_id,
+        name: item.product.product_name,
+        brand: item.product.product_brand,
+        category: item.product.product_type,
+        type: item.product.classification || 'PRE-PACK',
+        price: item.product.price,
+        quantity: item.quantity
+      }));
+
+      // Create the order
+      const order = await createOrder(orderItems, totalPrice);
+
+      // Clear the cart
+      clearCart();
+
+      // Show success message
+      Alert.alert(
+        'Order Placed!',
+        `Order Number: ${order.order_number}\n\nYour pickup order has been placed successfully. Track your order on the home screen.`,
+        [
+          {
+            text: 'View Order',
+            onPress: () => router.push('/(tabs)')
+          }
+        ]
+      );
+    } catch (error) {
+      console.error('Error placing order:', error);
+      Alert.alert(
+        'Order Failed',
+        'There was an error placing your order. Please try again.',
+        [{ text: 'OK' }]
+      );
+    }
   };
 
   const handleClearCart = () => {

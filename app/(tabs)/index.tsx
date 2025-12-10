@@ -14,8 +14,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 import eventsData from '../../data/dummy-events.json';
 import { useUser } from '../../contexts/UserContext';
 import { useCart } from '../../contexts/CartContext';
+import { useOrders } from '../../contexts/OrderContext';
 import dummyProductsData from '../../data/dummy-products.json';
 import AuthModal from '../../components/AuthModal';
+import OrderTracker from '../../components/OrderTracker';
 
 /**
  * WELCOME TO YOUR FIRST APP!
@@ -439,6 +441,7 @@ function UpcomingEvent() {
 
 export default function App() {
   const { isLoggedIn, userData } = useUser();
+  const { activeOrder } = useOrders();
   const [authModalVisible, setAuthModalVisible] = useState(false);
 
   return (
@@ -450,11 +453,21 @@ export default function App() {
       {/* Divider */}
       <Image source={require('../../assets/images/divider.png')} style={styles.divider} />
 
-      {/* Welcome Message for Logged In Users */}
-      {isLoggedIn && userData && (
+      {/* Order Tracker for Active Orders */}
+      {isLoggedIn && activeOrder && (
         <>
-          <Text style={styles.welcomeMessage}>Welcome back, {userData.firstName}!</Text>
-          <Text style={styles.rewardsBalance}>Rewards: ${userData.rewardsBalance.toFixed(2)}</Text>
+          <OrderTracker order={activeOrder} compact />
+          <Image source={require('../../assets/images/divider.png')} style={styles.divider} />
+        </>
+      )}
+
+      {/* Welcome Message for Logged In Users (only shown if no active order) */}
+      {isLoggedIn && userData && !activeOrder && (
+        <>
+          <View style={styles.welcomeBox}>
+            <Text style={styles.welcomeMessage}>Welcome back, {userData.firstName}!</Text>
+            <Text style={styles.rewardsBalance}>Rewards: ${userData.rewardsBalance.toFixed(2)}</Text>
+          </View>
           <Image source={require('../../assets/images/divider.png')} style={styles.divider} />
         </>
       )}
@@ -529,21 +542,27 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 24
   },
+  welcomeBox: {
+    width: '100%',
+    backgroundColor: '#FCBF27',
+    borderRadius: 12,
+    padding: 20,
+    alignItems: 'center',
+    marginBottom: 24,
+  },
   welcomeMessage: {
     fontSize: 20,
     fontFamily: 'Poppins-BoldItalic',
     fontWeight: '700',
-    color: '#FCBF27',
+    color: '#121212',
     textAlign: 'center',
     marginBottom: 8,
   },
   rewardsBalance: {
     fontSize: 16,
     fontFamily: 'Poppins-Regular',
-    color: '#FCBF27',
+    color: '#121212',
     textAlign: 'center',
-    marginBottom: 24,
-    opacity: 0.9,
   },
   headerImage: {
     width: 280,

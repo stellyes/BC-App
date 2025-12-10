@@ -3,7 +3,16 @@
     "allow": [
       "Bash(python add_descriptions.py:*)",
       "Bash(cd:*)",
-      "Bash(npx expo start)"
+      "Bash(npx expo start)",
+      "Bash(npx expo install expo-notifications expo-device)",
+      "Bash(npx expo install:*)",
+      "Bash(npx expo:*)",
+      "Bash(npx eas:*)",
+      "Bash(cat:*)",
+      "Bash(npx eas-cli:*)",
+      "Bash(uuidgen:*)",
+      "Bash(printf:*)",
+      "Bash(CI=1 npx eas-cli:*)"
     ],
     "deny": [],
     "ask": []
